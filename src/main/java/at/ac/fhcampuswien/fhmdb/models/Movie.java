@@ -8,6 +8,11 @@ public class Movie {
     private String description;
     // TODO add more properties here
 
+    //genre List
+    List<String> genreList=new ArrayList<>();
+
+    // Front Cover IMG Object?
+
     public Movie(String title, String description) {
         this.title = title;
         this.description = description;
