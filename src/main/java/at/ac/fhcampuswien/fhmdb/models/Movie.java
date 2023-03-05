@@ -9,10 +9,7 @@ public class Movie {
     // TODO add more properties here
 
     //genre List
-    List<String> genreList=new ArrayList<>(List.of("ACTION", "ADVENTURE",
-            "ANIMATION", "BIOGRAPHY", "COMEDY", "CRIME", "DRAMA", "DOCUMENTARY", "FAMILY",
-            "FANTASY", "HISTORY", "HORROR", "MUSICAL", "MYSTERY", "ROMANCE", "SCIENCE_FICTION",
-            "SPORT", "THRILLER", "WAR", "WESTERN"));
+    private List<String> genres;
 
     // Front Cover IMG Object?
 
