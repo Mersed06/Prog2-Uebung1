@@ -41,6 +41,18 @@ public class Movie {
                 "The Dark Knight Rises",
                 "Eight years after the Joker's reign of chaos, Batman is coerced out of exile with the assistance of the mysterious Selina Kyle in order to defend Gotham City from the vicious guerrilla terrorist Bane"
         ));
+        movies.add(new Movie(
+                "Spider-Man",
+                "After being bitten by a genetically-modified spider, a shy teenager gains spider-like abilities that he uses to fight injustice as a masked superhero and face a vengeful enemy."
+        ));
+        movies.add(new Movie(
+                "Batman",
+                "Batman was originally introduced as a ruthless vigilante who frequently killed or maimed criminals, but evolved into a character with a stringent moral code and strong sense of justice."
+        ));
+        movies.add(new Movie(
+                "The Intouchables",
+                "\"The Intouchables\" tells the true story of a wealthy, physically disabled risk taker, the picture of established French nobility, who lost his wife in an accident and whose world is turned upside down when he hires a young, good-humored, black Muslim ex-con as his caretaker."
+        ));
         return movies;
     }
 }
