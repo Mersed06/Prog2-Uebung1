@@ -51,7 +51,7 @@ public class Movie {
         ));
         movies.add(new Movie(
                 "The Intouchables",
-                "\"The Intouchables\" tells the true story of a wealthy, physically disabled risk taker, the picture of established French nobility, who lost his wife in an accident and whose world is turned upside down when he hires a young, good-humored, black Muslim ex-con as his caretaker."
+                "The Intouchables tells the true story of a wealthy, physically disabled risk taker, the picture of established French nobility, who lost his wife in an accident and whose world is turned upside down when he hires a young, good-humored, black Muslim ex-con as his caretaker."
         ));
         return movies;
     }
