@@ -11,10 +11,10 @@ class HomeControllerTest {
         List<Movie> expectedMovies = Movie.initializeMovies();
 
         // When
-        Movie actualMovieSize = expectedMovies.size()
+        Movie expectedMovieSize = expectedMovies.size()
 
         // Then
-        assertEquals(actualMovieSize, controller.observableMovies.size());
+        assertEquals(expectedMovieSize, controller.observableMovies.size());
     }
 
     @Test
@@ -24,10 +24,10 @@ class HomeControllerTest {
         List<Movie> expectedMovies = Movie.initializeMovies();
 
         // When
-        Movie actualMovie = expectedMovies.get(0);
+        Movie expectedMovie = expectedMovies.get(0);
 
         // Then
-        assertEquals(actualMovie, controller.observableMovies.get(0));
+        assertEquals(expectedMovie, controller.observableMovies.get(0));
 
     }
 
