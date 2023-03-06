@@ -8,7 +8,6 @@ public class Movie {
     private String description;
     // TODO add more properties here
 
-    //genre List
     private List<Genre> genres = List.of(Genre.values());
 
     // Front Cover IMG Object?
@@ -26,7 +25,9 @@ public class Movie {
         return description;
     }
 
-    public List<Genre> getGenres() {return genres;}
+    public List<Genre> getGenres() {
+        return genres;
+    }
 
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
