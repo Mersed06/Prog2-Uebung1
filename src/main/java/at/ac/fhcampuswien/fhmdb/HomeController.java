@@ -52,6 +52,17 @@ public class HomeController implements Initializable {
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
+        // TODO add search filter
+        searchField.setOnAction(actionEvent -> {
+            String searchTerm = searchField.getText();
+            movieListView.setItems(searchMovies(observableMovies,searchTerm));
+        });
+
+
+
+
+
+
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
             if(sortBtn.getText().equals("Sort (asc)")) {
@@ -64,5 +75,18 @@ public class HomeController implements Initializable {
         });
 
 
+    }
+
+    public static ObservableList<Movie> searchMovies(ObservableList<Movie> movies,String searchTerm)
+    {
+        ObservableList<Movie> searchResults = FXCollections.observableArrayList();
+        for (Movie mov: movies)
+        {
+            if (mov.getTitle().contains(searchTerm) || mov.getDescription().contains(searchTerm))
+            {
+                searchResults.add(mov);
+            }
+        }
+        return searchResults;
     }
 }
