@@ -13,8 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class HomeController implements Initializable {
     @FXML
@@ -38,8 +41,8 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        allMovies.get(1);
         observableMovies.addAll(allMovies);         // add dummy data to observable list
-
 
         // initialize UI stuff
         movieListView.setItems(observableMovies);   // set data of observable list to list view
@@ -58,23 +61,19 @@ public class HomeController implements Initializable {
             movieListView.setItems(searchMovies(observableMovies,searchTerm));
         });
 
-
-
-
-
-
-        // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
             if(sortBtn.getText().equals("Sort (asc)")) {
-                // TODO sort observableMovies ascending
-                sortBtn.setText("Sort (desc)");
+                // sorts observableMovies ascending
+                sortBtn.setText("Sort (desc)"); // changes the sort button text
+                Comparator<Movie> naturalComparator = Comparator.comparing(Movie::getTitle); // creates a comparator that sorts lists in natural order
+                movieListView.setItems(observableMovies.sorted(naturalComparator)); // sorts the list by applying the "naturalComparator" comparator
             } else {
-                // TODO sort observableMovies descending
-                sortBtn.setText("Sort (asc)");
+                // sorts observableMovies descending
+                sortBtn.setText("Sort (asc)"); // changes the sort button text
+                Comparator<Movie> reversedComparator = Collections.reverseOrder(Comparator.comparing(Movie::getTitle)); // creates a comparator that sorts lists in reverse order
+                movieListView.setItems(observableMovies.sorted(reversedComparator)); // reverses the list order by applying the "reversedComparator" comparator
             }
         });
-
-
     }
 
     public static ObservableList<Movie> searchMovies(ObservableList<Movie> movies,String searchTerm)
