@@ -63,7 +63,38 @@ public class Movie {
                 "The Intouchables",
                 "The Intouchables tells the true story of a wealthy, physically disabled risk taker, the picture of established French nobility, who lost his wife in an accident and whose world is turned upside down when he hires a young, good-humored, black Muslim ex-con as his caretaker.",
                 List.of(Genre.ACTION)));
-
+        movies.add(new Movie(
+                "Up",
+                "78-year-old Carl Fredricksen travels to Paradise Falls in his house equipped with balloons, inadvertently taking a young stowaway.",
+                List.of(Genre.ADVENTURE, Genre.ANIMATION, Genre.COMEDY)));
+        movies.add(new Movie(
+                "Chucky",
+                "A single mother gives her son a much sought-after doll for his birthday, only to discover that it is possessed by the soul of a serial killer.",
+                List.of(Genre.HORROR, Genre.THRILLER)));
+        movies.add(new Movie(
+                "Django Unchained",
+                "With the help of a German bounty-hunter, a freed slave sets out to rescue his wife from a brutal plantation owner in Mississippi.",
+                List.of(Genre.DRAMA, Genre.WESTERN)));
+        movies.add(new Movie(
+                "E.T. the Extra-Terrestrial",
+                "A troubled child summons the courage to help a friendly alien escape from Earth and return to his home planet.",
+                List.of(Genre.ADVENTURE, Genre.SCIENCE_FICTION, Genre.FAMILY)));
+        movies.add(new Movie(
+                "Finding Nemo",
+                "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
+                List.of(Genre.ADVENTURE, Genre.ANIMATION, Genre.COMEDY)));
+        movies.add(new Movie(
+                "No Country for Old Men",
+                "Violence and mayhem ensue after a hunter stumbles upon a drug deal gone wrong and more than two million dollars in cash near the Rio Grande.",
+                List.of(Genre.CRIME, Genre.DRAMA, Genre.THRILLER)));
+        movies.add(new Movie(
+                "Zathura",
+                "Two young brothers are drawn into an intergalactic adventure when their house is hurled through the depths of space by the magical board game they are playing.",
+                List.of(Genre.COMEDY, Genre.ADVENTURE, Genre.COMEDY)));
+        movies.add(new Movie(
+                "Wargames",
+                "Ultimate cold war hacker fantasy disguised as a teen movie. Computer whiz kid hacks into the US military's nuclear arsenal control site and decides that a showdown with Russia would be enormous fun. Matthew Broderick and Ally Sheedy lend Brat Pack credibility.",
+                List.of(Genre.ACTION, Genre.DRAMA, Genre.SCIENCE_FICTION)));
         return movies;
     }
 }
