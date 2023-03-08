@@ -90,11 +90,14 @@ public class HomeController implements Initializable {
             observableMovies.clear();
             observableMovies.addAll(allMovies);
             movieListView.setItems(observableMovies);
+            searchField.clear();
+            genreComboBox.setValue(null);
         });
     }
 
     public static ObservableList<Movie> searchMovies(ObservableList<Movie> movies,String searchTerm)
     {
+        ///Still needs work
         ObservableList<Movie> searchResults = FXCollections.observableArrayList();
         for (Movie mov: movies)
         {
