@@ -43,10 +43,10 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        observableMovies.addAll(allMovies);         // add dummy data to observable list
+        observableMovies.addAll(allMovies);// add dummy data to observable list
 
         // initialize UI stuff
-        movieListView.setItems(observableMovies);   // set data of observable list to list view
+        movieListView.setItems(observableMovies);// set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
@@ -67,7 +67,7 @@ public class HomeController implements Initializable {
         // either set event handlers in the fxml file (onAction) or add them here
 
         // TODO add search filter
-        searchField.setOnAction(actionEvent -> {
+            searchField.setOnAction(actionEvent -> {
             String searchTerm = searchField.getText();
             movieListView.setItems(searchMovies(observableMovies,searchTerm));
         });
