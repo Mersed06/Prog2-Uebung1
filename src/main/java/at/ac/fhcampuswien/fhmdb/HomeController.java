@@ -43,36 +43,35 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        observableMovies.addAll(allMovies);// add dummy data to observable list
+        observableMovies.addAll(allMovies); // adds dummy data to observable list
 
         // initialize UI stuff
         movieListView.setItems(observableMovies);// set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
-        // TODO add genre filter items with genreComboBox.getItems().addAll(...)
+        // GENRE FILTER
         genreComboBox.setPromptText("Filter by Genre");
         genreComboBox.getItems().addAll(Genre.values());
-        //Funktioniert nicht, bitte ansehen
-        searchBtn.setOnAction(actionEvent -> {
-            ObservableList<Movie> filteredMovies = FXCollections.observableArrayList();
-            for (Movie movie : observableMovies) {
+        searchBtn.setOnAction(actionEvent -> { // TODO: DOESN'T WORK, PLEASE FIX!!!
+            observableMovies.clear();
+            ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(); // creates an ObservableList
+            for (Movie movie : allMovies) { // loops trough the list and adds movies with the same genre as set in the combobox
                 if (movie.getGenre() == genreComboBox.getValue()) {
                     filteredMovies.add(movie);
                 }
             }
-            observableMovies = filteredMovies;
-            movieListView.setItems(observableMovies);
+            observableMovies = filteredMovies; // copies the filtered list into the main list
+            movieListView.setItems(observableMovies); // set data of observable list to list view
         });
-        // TODO add event handlers to buttons and call the regarding methods
-        // either set event handlers in the fxml file (onAction) or add them here
 
-        // TODO add search filter
-            searchField.setOnAction(actionEvent -> {
+        // SEARCH FILTER
+        searchField.setOnAction(actionEvent -> { // defines what happens on click
             String searchTerm = searchField.getText();
             movieListView.setItems(searchMovies(observableMovies,searchTerm));
         });
 
-        sortBtn.setOnAction(actionEvent -> {
+        // SORT BUTTON
+        sortBtn.setOnAction(actionEvent -> { // defines what happens on click
             if(sortBtn.getText().equals("Sort (asc)")) {
                 // sorts observableMovies ascending
                 sortBtn.setText("Sort (desc)"); // changes the sort button text
@@ -86,11 +85,15 @@ public class HomeController implements Initializable {
             }
         });
 
-        resetBtn.setOnAction(actionEvent -> {
-            observableMovies.clear();
-            observableMovies.addAll(allMovies);
-            movieListView.setItems(observableMovies);
+        //RESET BUTTON
+        resetBtn.setOnAction(actionEvent -> { // defines what happens on click
+            observableMovies.clear(); // deletes every entry in the list
+            observableMovies.addAll(allMovies); // adds dummy data to observable list
+            movieListView.setItems(observableMovies); // set data of observable list to list view
         });
+
+        // TODO add event handlers to buttons and call the regarding methods
+        // either set event handlers in the fxml file (onAction) or add them here
     }
 
     public static ObservableList<Movie> searchMovies(ObservableList<Movie> movies,String searchTerm)
