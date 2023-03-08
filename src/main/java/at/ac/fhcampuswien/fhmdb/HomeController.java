@@ -34,6 +34,9 @@ public class HomeController implements Initializable {
     @FXML
     public JFXButton sortBtn;
 
+    @FXML
+    public JFXButton resetBtn;
+
     public List<Movie> allMovies = Movie.initializeMovies();
 
     private ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
@@ -81,6 +84,12 @@ public class HomeController implements Initializable {
                 Comparator<Movie> reversedComparator = Collections.reverseOrder(Comparator.comparing(Movie::getTitle)); // creates a comparator that sorts lists in reverse order
                 movieListView.setItems(observableMovies.sorted(reversedComparator)); // reverses the list order by applying the "reversedComparator" comparator
             }
+        });
+
+        resetBtn.setOnAction(actionEvent -> {
+            observableMovies.clear();
+            observableMovies.addAll(allMovies);
+            movieListView.setItems(observableMovies);
         });
     }
 
