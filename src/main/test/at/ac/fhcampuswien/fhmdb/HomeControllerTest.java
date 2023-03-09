@@ -11,7 +11,7 @@ class HomeControllerTest {
         List<Movie> expectedMovies = Movie.initializeMovies();
 
         // When
-        Movie expectedMovieSize = expectedMovies.size()
+        Movie expectedMovieSize = expectedMovies.size();
 
         // Then
         assertEquals(expectedMovieSize, controller.observableMovies.size());
