@@ -56,7 +56,7 @@ public class HomeController implements Initializable {
         searchBtn.setOnAction(actionEvent -> {
             ObservableList<Movie> filteredMovies = FXCollections.observableArrayList();
             for (Movie movie : observableMovies) {
-                if (movie.getGenre() == genreComboBox.getValue()) {
+                if (movie.getGenres() == genreComboBox.getValue()) {
                     filteredMovies.add(movie);
                 }
             }
