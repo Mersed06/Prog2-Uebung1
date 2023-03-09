@@ -151,6 +151,34 @@ public class Movie {
         movie.addMovieGenre(Genre.THRILLER);
         movies.add(movie);
 
+        movie = new Movie(
+                "Rheingold",
+                "Born as Giwar Hajabi in Iran, rapper and music producer Xatar can look back on an eventful life. His parents are Iranian Kurds and fled with him to Germany via Iraq in the mid-1980s. His father and mother are musicians. They want Giwar to learn to play the piano. He grew up in poor conditions in a social housing estate in Bonn. After his father gets a job as a conductor, he leaves his wife and children. In order to get money and fame, Giwar drifts into petty crime. From copying porn onto VHS tapes to selling narcotics");
+        movie.addMovieGenre(Genre.ACTION);
+        movie.addMovieGenre(Genre.ADVENTURE);
+        movies.add(movie);
+
+        movie = new Movie(
+                "Despicable Me",
+                "The revolutionary minions: Kevin- the leader, Stuart- the rebel and Bob- their lovable little brother left the \"Minion Tribes\"- which have served their ex-masters, from the famous dinosaur T-Rex to Napoleon the Great; and went seeking for a new \"master\". Finally, their journey ends in London after being recruited by a female super villain named Scarlet Overkill and her husband Herb in Orlando, who wanted to rule the world. Now, the three minions must face a new challenge: saving all of the Minion tribes from a huge plan of Minion annihilation.");
+        movie.addMovieGenre(Genre.FAMILY);
+        movies.add(movie);
+
+
+        movie = new Movie(
+                "The Fast and the Furious: Tokyo Drift",
+                "THE FAST AND THE FURIOUS: TOKYO DRIFT is the story of Sean, a high schooler with a Texas drawl, who pulls one illegal racing stunt too many. His mom ships Sean off to live with his estranged father in Tokyo, where he’s immediately caught up in the Tokyo underworld of drift racing. Sean’s entanglement in mobster affairs sets up numerous opportunities for him to race his way out of peril, but the plot and characters are really just excuses to hear tires shriek, see sleek cars go fast and watch macho boys test their prowess and manhood behind the wheel.");
+        movie.addMovieGenre(Genre.ACTION);
+        movie.addMovieGenre(Genre.ADVENTURE);
+        movies.add(movie);
+
+        movie = new Movie(
+                "American Sniper",
+                "Navy S.E.A.L. sniper Chris Kyle's pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home with his family after four tours of duty, however, Chris finds that it is the war he can't leave behind.");
+        movie.addMovieGenre(Genre.ACTION);
+        movie.addMovieGenre(Genre.CRIME);
+        movies.add(movie);
+
         return movies;
     }
 }

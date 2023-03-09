@@ -65,7 +65,7 @@ class HomeControllerTest {
         String actualTitle = "The Matrix";
 
         // Then
-        // Test that the observableMovies list contains "The MAtrix" as movie title.
+        // Test that the observableMovies list contains "The Matrix" as movie title.
         assertEquals(actualTitle, controller.observableMovies.get(0).getTitle());
     }
 
