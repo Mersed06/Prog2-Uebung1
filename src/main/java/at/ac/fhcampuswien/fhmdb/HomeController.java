@@ -8,15 +8,12 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class HomeController implements Initializable {
     @FXML
@@ -37,75 +34,77 @@ public class HomeController implements Initializable {
     @FXML
     public JFXButton resetBtn;
 
-    public List<Movie> allMovies = Movie.initializeMovies();
+    public List<Movie> allMovies = Movie.initializeMovies(); // creates an ArrayList and fills it with the dummy data
 
-    private ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
+    private ObservableList<Movie> observableMovies = FXCollections.observableArrayList(); // automatically updates corresponding UI elements when underlying data changes
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        observableMovies.addAll(allMovies);// add dummy data to observable list
+        // DUMMY DATA -> OBSERVABLE LIST
+        observableMovies.addAll(allMovies); // inserts all movies into the observableMovies list
 
-        // initialize UI stuff
-        movieListView.setItems(observableMovies);// set data of observable list to list view
+        // UI INITIALIZE
+        movieListView.setItems(observableMovies); // sets data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
-        // TODO add genre filter items with genreComboBox.getItems().addAll(...)
-        genreComboBox.setPromptText("Filter by Genre");
-        genreComboBox.getItems().addAll(Genre.values());
-        //Funktioniert nicht, bitte ansehen
-        searchBtn.setOnAction(actionEvent -> {
-            ObservableList<Movie> filteredMovies = FXCollections.observableArrayList();
-            for (Movie movie : observableMovies) {
-                if (movie.getGenres() == genreComboBox.getValue()) {
-                    filteredMovies.add(movie);
-                }
-            }
-            observableMovies = filteredMovies;
-            movieListView.setItems(observableMovies);
-        });
-        // TODO add event handlers to buttons and call the regarding methods
-        // either set event handlers in the fxml file (onAction) or add them here
+        // GENRE COMBOBOX
+        genreComboBox.setPromptText("Filter by Genre"); // sets the default value (which is not an ordinary combobox option)
+        genreComboBox.getItems().addAll(Genre.values()); // adds all enums from the genre class
 
-        // TODO add search filter
-            searchField.setOnAction(actionEvent -> {
-            String searchTerm = searchField.getText();
-            movieListView.setItems(searchMovies(observableMovies,searchTerm));
-        });
-
+        // SORT BUTTON
         sortBtn.setOnAction(actionEvent -> {
-            if(sortBtn.getText().equals("Sort (asc)")) {
-                // sorts observableMovies ascending
+            if(sortBtn.getText().equals("Sort (asc)")) { // sorts observableMovies ascending
                 sortBtn.setText("Sort (desc)"); // changes the sort button text
-                Comparator<Movie> naturalComparator = Comparator.comparing(Movie::getTitle); // creates a comparator that sorts lists in natural order
-                movieListView.setItems(observableMovies.sorted(naturalComparator)); // sorts the list by applying the "naturalComparator" comparator
-            } else {
-                // sorts observableMovies descending
+                movieListView.setItems(observableMovies.sorted(Comparator.comparing(Movie::getTitle))); // sorts the list by applying the "naturalComparator" comparator
+            } else { // sorts observableMovies descending
                 sortBtn.setText("Sort (asc)"); // changes the sort button text
-                Comparator<Movie> reversedComparator = Collections.reverseOrder(Comparator.comparing(Movie::getTitle)); // creates a comparator that sorts lists in reverse order
-                movieListView.setItems(observableMovies.sorted(reversedComparator)); // reverses the list order by applying the "reversedComparator" comparator
+                movieListView.setItems(observableMovies.sorted(Collections.reverseOrder(Comparator.comparing(Movie::getTitle)))); // reverses the list order by applying the "reversedComparator" comparator
             }
         });
 
+        // SEARCH FIELD
+        searchField.setOnAction(actionEvent -> {
+            String searchTerm = searchField.getText(); // gets the text from the search field
+            movieListView.setItems(searchMovies(observableMovies,searchTerm)); // uses the search method to query trough strings
+        });
+
+        // GENRE FILTER BUTTON
+        searchBtn.setOnAction(actionEvent -> {
+            movieListView.setItems(filterMovies(observableMovies, genreComboBox)); // filters the observable list to the set combobox value
+        });
+
+        // RESET BUTTON
         resetBtn.setOnAction(actionEvent -> {
-            observableMovies.clear();
-            observableMovies.addAll(allMovies);
-            movieListView.setItems(observableMovies);
-            searchField.clear();
-            genreComboBox.setValue(null);
+            observableMovies.clear(); // deletes every entry from the observableMovies list
+            observableMovies.addAll(allMovies); // inserts all movies onto the observableMovies list
+            movieListView.setItems(observableMovies); // sets data of observable list to list view
+            searchField.clear(); // deletes text (if written any) from the search field
+            genreComboBox.setValue(null); // sets the combobox to default value
         });
     }
 
-    public static ObservableList<Movie> searchMovies(ObservableList<Movie> movies,String searchTerm)
-    {
-        ///Still needs work
-        ObservableList<Movie> searchResults = FXCollections.observableArrayList();
-        for (Movie mov: movies)
-        {
-            if (mov.getTitle().contains(searchTerm) || mov.getDescription().contains(searchTerm))
-            {
-                searchResults.add(mov);
+    // SEARCH METHOD
+    public static ObservableList<Movie> searchMovies(ObservableList<Movie> movieList,String searchTerm) {
+        ObservableList<Movie> searchResultList = FXCollections.observableArrayList(); // creates a new ObservableList
+        for (Movie movie: movieList) {
+            if (movie.getTitle().contains(searchTerm) || // searches in the movie titles case-sensitive
+                    movie.getTitle().contains(searchTerm.toLowerCase()) || // searches in the movie titles in lower case
+                    movie.getDescription().contains(searchTerm) || // searches in the movie description case-sensitive
+                    movie.getDescription().contains(searchTerm.toLowerCase())) { // searches in the movie description in lower case
+                searchResultList.add(movie); // adds movies to the searchResults list that fulfill the if criteria
             }
         }
-        return searchResults;
+        return searchResultList;
+    }
+
+    // FILTER METHOD
+    public static ObservableList<Movie> filterMovies(ObservableList<Movie>movieList, ComboBox genreBox) {
+        ObservableList<Movie> filterResultList = FXCollections.observableArrayList(); // creates a new ObservableList
+        for (Movie movie : movieList) {
+            if (movie.getGenreList().contains(genreBox.getValue())) { // checks if the genre list from the movie contains the current set genreBox genre
+                filterResultList.add(movie); // adds movies to the filterResultList that fulfill the if criteria
+            }
+        }
+        return filterResultList;
     }
 }

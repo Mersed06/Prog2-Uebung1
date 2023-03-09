@@ -26,7 +26,7 @@ public class MovieCell extends ListCell<Movie> {
         } else {
             this.getStyleClass().add("movie-cell");
             title.setText(movie.getTitle());
-            genre.setText(movie.getGenres().toString());
+            genre.setText(movie.getGenreList().toString());
             detail.setText(
                     movie.getDescription() != null
                             ? movie.getDescription()
@@ -34,7 +34,7 @@ public class MovieCell extends ListCell<Movie> {
             );
 
             // Remove square brackets from genres list.
-            genre.setText(movie.getGenres().stream().map(Enum::name).reduce((a, b) -> a + ", " + b).orElse("There are no genres!"));
+            genre.setText(movie.getGenreList().stream().map(Enum::name).reduce((a, b) -> a + ", " + b).orElse("There are no genres!"));
 
             // color scheme
             title.getStyleClass().add("text-yellow");

@@ -1,24 +1,17 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Movie {
     private String title;
     private String description;
-    // TODO add more properties here
-
-    //genre List
-    private List<Genre> genres;
-
-    // Front Cover IMG Object?
+    private List<Genre> genreList;
 
     public Movie(String title, String description) {
         this.title = title;
         this.description = description;
-        this.genres = new ArrayList<>();
+        this.genreList = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -29,13 +22,13 @@ public class Movie {
         return description;
     }
 
-    public List<Genre> getGenres()
+    public List<Genre> getGenreList()
     {
-        return genres;
+        return genreList;
     }
 
     public void addMovieGenre(Genre genre) {
-        genres.add(genre);
+        genreList.add(genre);
     }
 
     public static List<Movie> initializeMovies(){
