@@ -39,8 +39,7 @@
     -fx-text-fill: #ffffff;
 }
 
-.genre
-{
-    -fx-text-fill: #ffffff;
+.font-italic {
     -fx-font-style: italic;
+    -fx-text-fill: #ffffff;
 }
