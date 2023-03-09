@@ -65,12 +65,14 @@ public class HomeController implements Initializable {
         // SEARCH FIELD
         searchField.setOnAction(actionEvent -> {
             String searchTerm = searchField.getText(); // gets the text from the search field
-            movieListView.setItems(searchMovies(observableMovies,searchTerm)); // uses the search method to query trough strings
+            observableMovies = searchMovies(observableMovies,searchTerm);
+            movieListView.setItems(observableMovies); // uses the search method to query trough strings
         });
 
         // GENRE FILTER BUTTON
         searchBtn.setOnAction(actionEvent -> {
-            movieListView.setItems(filterMovies(observableMovies, genreComboBox)); // filters the observable list to the set combobox value
+            observableMovies = filterMovies(observableMovies, genreComboBox);
+            movieListView.setItems(observableMovies); // filters the observable list to the set combobox value
         });
 
         // RESET BUTTON
