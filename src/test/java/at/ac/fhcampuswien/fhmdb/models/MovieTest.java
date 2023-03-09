@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 class MovieTest {
-   /* @Test
+    @Test
     void test_movie_title() {
         // Given
         Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
@@ -34,12 +34,13 @@ class MovieTest {
     void test_movie_list_of_genres() {
         // Given
         Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
+        movie.addMovieGenre(Genre.ACTION);
 
         // When
-        List<Genre> expectedMovieGenres = List.of(Genre.values());
+        Genre expectedMovieGenre = Genre.ACTION;
 
         // Then
-        assertEquals(expectedMovieGenres, movie.getGenres());
+        assertEquals(expectedMovieGenre, movie.getGenres());
     }
 
     @Test
@@ -48,7 +49,7 @@ class MovieTest {
         List<Movie> movies = Movie.initializeMovies();
 
         // When
-        int expectedMovieSize = 6;
+        int expectedMovieSize = 14;
 
         // Then
         assertEquals(expectedMovieSize, movies.size());
@@ -89,6 +90,4 @@ class MovieTest {
         // Then
         assertEquals(expectedMovieGenres, movies.get(0).getGenres().get(0).toString());
     }
-
-*/
 }
