@@ -26,18 +26,21 @@ public class MovieCell extends ListCell<Movie> {
         } else {
             this.getStyleClass().add("movie-cell");
             title.setText(movie.getTitle());
-            genre.setText(movie.getGenre().toString());
+            genre.setText(movie.getGenres().toString());
             detail.setText(
                     movie.getDescription() != null
                             ? movie.getDescription()
                             : "No description available"
             );
 
+            // Remove square brackets from genres list.
+            genre.setText(movie.getGenres().stream().map(Enum::name).reduce((a, b) -> a + ", " + b).orElse("There are no genres!"));
 
             // color scheme
             title.getStyleClass().add("text-yellow");
             detail.getStyleClass().add("text-white");
-            genre.getStyleClass().add("genre");
+            genre.getStyleClass().add("font-italic");
+
             layout.setBackground(new Background(new BackgroundFill(Color.web("#454545"), null, null)));
 
             // layout
