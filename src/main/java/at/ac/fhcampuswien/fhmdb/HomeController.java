@@ -65,12 +65,16 @@ public class HomeController implements Initializable {
         // SEARCH FIELD
         searchField.setOnAction(actionEvent -> {
             String searchTerm = searchField.getText(); // gets the text from the search field
-            observableMovies = searchMovies(observableMovies,searchTerm);
-            movieListView.setItems(observableMovies); // uses the search method to query trough strings
         });
 
-        // GENRE FILTER BUTTON
+        // FILTER BUTTON
         searchBtn.setOnAction(actionEvent -> {
+
+            resetMovies(observableMovies, allMovies);
+            String searchTerm = searchField.getText(); // gets the text from the search field
+            observableMovies = searchMovies(observableMovies,searchTerm);
+
+
             observableMovies = filterMovies(observableMovies, genreComboBox);
             movieListView.setItems(observableMovies); // filters the observable list to the set combobox value
         });
@@ -90,8 +94,8 @@ public class HomeController implements Initializable {
         ObservableList<Movie> searchResultList = FXCollections.observableArrayList(); // creates a new ObservableList
         for (Movie movie: movieList) {
             if (movie.getTitle().contains(searchTerm) || // searches in the movie titles case-sensitive
-                    movie.getTitle().contains(searchTerm.toLowerCase()) || // searches in the movie titles in lower case
-                    movie.getDescription().contains(searchTerm) || // searches in the movie description case-sensitive
+            movie.getTitle().contains(searchTerm.toLowerCase())   ||// searches in the movie titles in lower case
+            movie.getDescription().contains(searchTerm) || // searches in the movie description case-sensitive
                     movie.getDescription().contains(searchTerm.toLowerCase())) { // searches in the movie description in lower case
                 searchResultList.add(movie); // adds movies to the searchResults list that fulfill the if criteria
             }
@@ -100,13 +104,22 @@ public class HomeController implements Initializable {
     }
 
     // FILTER METHOD
-    public static ObservableList<Movie> filterMovies(ObservableList<Movie>movieList, ComboBox genreBox) {
+    public static ObservableList<Movie> filterMovies(ObservableList<Movie> movieList, ComboBox genreBox) {
         ObservableList<Movie> filterResultList = FXCollections.observableArrayList(); // creates a new ObservableList
-        for (Movie movie : movieList) {
+        for (Movie movie :movieList ) {
             if (movie.getGenreList().contains(genreBox.getValue())) { // checks if the genre list from the movie contains the current set genreBox genre
                 filterResultList.add(movie); // adds movies to the filterResultList that fulfill the if criteria
+            }  else if (genreBox.getValue() == null) {
+                return movieList; // returns the original movie list
             }
         }
         return filterResultList;
     }
+
+
+    public static void resetMovies(ObservableList<Movie> movieList, List<Movie> movies) {
+        movieList.clear(); // deletes every entry from the observableMovies list
+        movieList.addAll(movies); // inserts all movies onto the observableMovies list
+    }
+
 }
