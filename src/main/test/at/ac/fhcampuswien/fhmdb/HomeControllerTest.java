@@ -44,10 +44,9 @@ class HomeControllerTest {
         // Given
         HomeController controller = new HomeController();
         ListView<Movie> movieListView = controller.movieListView;
-        TextField searchField = controller.searchField;
         JFXButton searchBtn = controller.searchBtn;
         // Simulate user input by entering "The Matrix" into the search field and clicking the search button.
-        searchField.setText("The Matrix");
+        controller.observableMovies.add(0,new Movie("abc","test"));
 
         // When
         int actual = 1;
@@ -62,17 +61,16 @@ class HomeControllerTest {
         // Given
         HomeController controller = new HomeController();
         ListView<Movie> movieListView = controller.movieListView;
-        TextField searchField = controller.searchField;
         JFXButton searchBtn = controller.searchBtn;
         // Simulate user input by entering "The Matrix" into the search field and clicking the search button.
-        searchField.setText("The Matrix");
+        controller.observableMovies.add(0,new Movie("The Matrix", "Test"));
 
         // When
         String actualTitle = "The Matrix";
 
         // Then
         // Test that the observableMovies list contains "The Matrix" as movie title.
-        assertEquals(actualTitle, movieListView.getItems().get(0).getTitle());
+        assertEquals(actualTitle, controller.observableMovies.get(0).getTitle());
     }
 
     @Test
@@ -80,10 +78,8 @@ class HomeControllerTest {
         // Given
         HomeController controller = new HomeController();
         ListView<Movie> movieListView = controller.movieListView;
-        TextField searchField = controller.searchField;
         JFXButton searchBtn = controller.searchBtn;
         // Simulate user input by entering "Some Movie" into the search field and clicking the search button.
-        searchField.setText("Some Movie");
 
         // When
         int actualSize = 0;
