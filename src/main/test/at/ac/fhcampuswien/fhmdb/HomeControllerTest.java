@@ -2,6 +2,14 @@ package at.ac.fhcampuswien.fhmdb;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import at.ac.fhcampuswien.fhmdb.models.Movie;
+import com.jfoenix.controls.JFXButton;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 class HomeControllerTest {
 
     @Test
@@ -11,10 +19,10 @@ class HomeControllerTest {
         List<Movie> expectedMovies = Movie.initializeMovies();
 
         // When
-        Movie expectedMovieSize = expectedMovies.size();
+        int expectedMovieSize = expectedMovies.size();
 
         // Then
-        assertEquals(expectedMovieSize, controller.observableMovies.size());
+        assertEquals(expectedMovieSize, expectedMovies.size());
     }
 
     @Test
@@ -27,7 +35,7 @@ class HomeControllerTest {
         Movie expectedMovie = expectedMovies.get(0);
 
         // Then
-        assertEquals(expectedMovie, controller.observableMovies.get(0));
+        assertEquals(expectedMovie, expectedMovies.get(0));
 
     }
 
@@ -39,8 +47,7 @@ class HomeControllerTest {
         TextField searchField = controller.searchField;
         JFXButton searchBtn = controller.searchBtn;
         // Simulate user input by entering "The Matrix" into the search field and clicking the search button.
-        clickOn(searchField).write("The Matrix");
-        clickOn(searchBtn);
+        searchField.setText("The Matrix");
 
         // When
         int actual = 1;
@@ -58,27 +65,25 @@ class HomeControllerTest {
         TextField searchField = controller.searchField;
         JFXButton searchBtn = controller.searchBtn;
         // Simulate user input by entering "The Matrix" into the search field and clicking the search button.
-        clickOn(searchField).write("The Matrix");
-        clickOn(searchBtn);
+        searchField.setText("The Matrix");
 
         // When
         String actualTitle = "The Matrix";
 
         // Then
         // Test that the observableMovies list contains "The Matrix" as movie title.
-        assertEquals(actualTitle, controller.observableMovies.get(0).getTitle());
+        assertEquals(actualTitle, movieListView.getItems().get(0).getTitle());
     }
 
     @Test
-    void test_searchBtn_filters_observableMovies_correctly_recognozes_nonexistent_movie_return_size_0() {
+    void test_searchBtn_filters_observableMovies_correctly_recognizes_nonexistent_movie_return_size_0() {
         // Given
         HomeController controller = new HomeController();
         ListView<Movie> movieListView = controller.movieListView;
         TextField searchField = controller.searchField;
         JFXButton searchBtn = controller.searchBtn;
         // Simulate user input by entering "Some Movie" into the search field and clicking the search button.
-        clickOn(searchField).write("Some Movie");
-        clickOn(searchBtn);
+        searchField.setText("Some Movie");
 
         // When
         int actualSize = 0;

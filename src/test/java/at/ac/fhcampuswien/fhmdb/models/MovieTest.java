@@ -40,7 +40,7 @@ class MovieTest {
         Genre expectedMovieGenre = Genre.ACTION;
 
         // Then
-        assertEquals(expectedMovieGenre, movie.getGenres());
+        assertEquals(expectedMovieGenre, movie.getGenreList().remove(0));
     }
 
     @Test
@@ -49,7 +49,7 @@ class MovieTest {
         List<Movie> movies = Movie.initializeMovies();
 
         // When
-        int expectedMovieSize = 14;
+        int expectedMovieSize = 18;
 
         // Then
         assertEquals(expectedMovieSize, movies.size());
@@ -88,6 +88,6 @@ class MovieTest {
         String expectedMovieGenres = "ACTION";
 
         // Then
-        assertEquals(expectedMovieGenres, movies.get(0).getGenres().get(0).toString());
+        assertEquals(expectedMovieGenres, movies.get(0).getGenreList().get(0).toString());
     }
 }
