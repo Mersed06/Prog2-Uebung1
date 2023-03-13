@@ -1,13 +1,13 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 class MovieTest {
+
     @Test
-    void test_movie_title() {
+    void test_getTitle_returns_The_Matrix() {
         // Given
         Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
 
@@ -19,7 +19,7 @@ class MovieTest {
     }
 
     @Test
-    void test_movie_description() {
+    void test_getDescription() {
         // Given
         Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
 
@@ -31,20 +31,20 @@ class MovieTest {
     }
 
     @Test
-    void test_movie_list_of_genres() {
+    void test_getGenreList_returns_ACTION() {
         // Given
         Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
         movie.addMovieGenre(Genre.ACTION);
 
         // When
-        Genre expectedMovieGenre = Genre.ACTION;
+        String expectedMovieGenre = "[" + Genre.ACTION.toString() + "]";
 
         // Then
-        assertEquals(expectedMovieGenre, movie.getGenreList().remove(0));
+        assertEquals(expectedMovieGenre, movie.getGenreList().toString());
     }
 
     @Test
-    void test_movie_size() {
+    void test_movie_size_is_18() {
         // Given
         List<Movie> movies = Movie.initializeMovies();
 
@@ -56,7 +56,7 @@ class MovieTest {
     }
 
     @Test
-    void test_if_first_movie_title_is_The_Matrix() {
+    void test_first_movie_title_is_The_Matrix() {
         // Given
         List<Movie> movies = Movie.initializeMovies();
 
@@ -80,7 +80,7 @@ class MovieTest {
     }
 
     @Test
-    void test_first_movie_genre() {
+    void test_first_movie_genre_is_ACTION() {
         // Given
         List<Movie> movies = Movie.initializeMovies();
 
