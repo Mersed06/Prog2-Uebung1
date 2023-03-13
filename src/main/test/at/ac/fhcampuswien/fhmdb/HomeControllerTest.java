@@ -17,7 +17,7 @@ class HomeControllerTest {
     private Movie movie1;
     private Movie movie2;
     private Movie movie3;
-    private  HomeController controller;
+    private HomeController controller;
 
     @BeforeEach
     public void setUp() {
@@ -200,7 +200,6 @@ class HomeControllerTest {
 
         // When
         int expectedSize = 0;
-
         // Then
         assertEquals(expectedSize, controller.observableMovies.size());
     }
