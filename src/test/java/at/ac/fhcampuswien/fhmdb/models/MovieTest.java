@@ -90,4 +90,17 @@ class MovieTest {
         // Then
         assertEquals(expectedMovieGenres, movies.get(0).getGenreList().get(0).toString());
     }
+
+    @Test
+    void test_if_added_movie_is_in_list() {
+        // Given
+        List<Movie> movies = Movie.initializeMovies();
+
+        movies.add(0,new Movie("Transformer","Test"));
+        // When
+        int expectedMoviesInList = 1;
+
+        // Then
+        assertEquals(expectedMoviesInList, movies.size());
+    }
 }
