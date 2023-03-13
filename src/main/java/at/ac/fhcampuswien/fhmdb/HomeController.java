@@ -87,7 +87,7 @@ public class HomeController implements Initializable {
     }
 
     // SEARCH METHOD
-    public static ObservableList<Movie> searchMovies(ObservableList<Movie> movieList,String searchTerm) {
+    public static ObservableList<Movie> searchMovies(ObservableList<Movie> movieList, String searchTerm) {
         ObservableList<Movie> searchResultList = FXCollections.observableArrayList(); // creates a new ObservableList
         for (Movie movie: movieList) {
             if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase()) || // searches in the movie titles case-insensitive

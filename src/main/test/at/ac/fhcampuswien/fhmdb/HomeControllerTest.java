@@ -171,7 +171,7 @@ class HomeControllerTest {
     void test_observableMovies_size_is_1() {
         // Given
         controller = new HomeController();
-        controller.observableMovies.add(0,new Movie("abc","test"));
+        controller.observableMovies.add(0, new Movie("abc", "test"));
 
         // When
         int expected = 1;
@@ -184,7 +184,7 @@ class HomeControllerTest {
     void test_observableMovies_first_movie_title_is_The_Matrix() {
         // Given
         controller = new HomeController();
-        controller.observableMovies.add(0,new Movie("The Matrix", "Test"));
+        controller.observableMovies.add(0, new Movie("The Matrix", "Test"));
 
         // When
         String expectedTitle = "The Matrix";
@@ -200,6 +200,7 @@ class HomeControllerTest {
 
         // When
         int expectedSize = 0;
+
         // Then
         assertEquals(expectedSize, controller.observableMovies.size());
     }
