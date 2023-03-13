@@ -69,12 +69,9 @@ public class HomeController implements Initializable {
 
         // FILTER BUTTON
         searchBtn.setOnAction(actionEvent -> {
-
             resetMovies(observableMovies, allMovies);
             String searchTerm = searchField.getText(); // gets the text from the search field
             observableMovies = searchMovies(observableMovies,searchTerm);
-
-
             observableMovies = filterMovies(observableMovies, genreComboBox);
             movieListView.setItems(observableMovies); // filters the observable list to the set combobox value
         });
@@ -116,10 +113,8 @@ public class HomeController implements Initializable {
         return filterResultList;
     }
 
-
     public static void resetMovies(ObservableList<Movie> movieList, List<Movie> movies) {
         movieList.clear(); // deletes every entry from the observableMovies list
         movieList.addAll(movies); // inserts all movies onto the observableMovies list
     }
-
 }
