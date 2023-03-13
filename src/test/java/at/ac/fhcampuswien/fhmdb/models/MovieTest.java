@@ -90,4 +90,16 @@ class MovieTest {
         // Then
         assertEquals(expectedMovieGenres, movies.get(0).getGenreList().get(0).toString());
     }
+
+    @Test
+    void test_getGenreList_contains_ACTION() {
+        // Given
+        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control.");
+
+        // When
+        movie.addMovieGenre(Genre.ACTION);
+
+        // Then
+        assertTrue(movie.getGenreList().contains(Genre.ACTION));
+    }
 }
