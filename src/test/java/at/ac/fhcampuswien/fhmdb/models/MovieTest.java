@@ -95,8 +95,9 @@ class MovieTest {
     void test_if_added_movie_is_in_list() {
         // Given
         List<Movie> movies = Movie.initializeMovies();
+        movies.clear();
 
-        movies.add(0,new Movie("Transformer","Test"));
+        movies.add(0,new Movie("Transformer","An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager."));
         // When
         int expectedMoviesInList = 1;
 
