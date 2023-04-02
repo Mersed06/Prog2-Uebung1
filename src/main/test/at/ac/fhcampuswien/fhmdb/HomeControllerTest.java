@@ -150,7 +150,6 @@ class HomeControllerTest {
         // When
         String expectedMessage = "\"movieList\" is null";
         String actualMessage = exception.getMessage();
-        System.out.printf(actualMessage);
 
         // Then
         assertTrue(actualMessage.contains(expectedMessage));
@@ -171,7 +170,7 @@ class HomeControllerTest {
     void test_observableMovies_size_is_1() {
         // Given
         controller = new HomeController();
-        controller.observableMovies.add(0, new Movie("abc", "test"));
+        controller.observableMovies.add(0, new Movie("abc","test"));
 
         // When
         int expected = 1;
@@ -200,7 +199,6 @@ class HomeControllerTest {
 
         // When
         int expectedSize = 0;
-
         // Then
         assertEquals(expectedSize, controller.observableMovies.size());
     }
