@@ -11,7 +11,7 @@ class MovieTest {
     @Test
     void test_getTitle_returns_The_Matrix() {
         // Given
-        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
+        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.", 1999, 8.7);
 
         // When
         String expectedMovieTitle = "The Matrix";
@@ -23,7 +23,7 @@ class MovieTest {
     @Test
     void test_getDescription() {
         // Given
-        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
+        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.", 1999, 8.7);
 
         // When
         String expectedMovieDescription = "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.";
@@ -35,7 +35,7 @@ class MovieTest {
     @Test
     void test_getGenreList_returns_ACTION() {
         // Given
-        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.");
+        Movie movie = new Movie("The Matrix", "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.", 1999, 8.7);
         movie.addMovieGenre(Genre.ACTION);
 
         // When
@@ -99,7 +99,7 @@ class MovieTest {
         List<Movie> movies = Movie.initializeMovies();
         movies.clear();
 
-        movies.add(0,new Movie("Transformer","An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager."));
+        movies.add(0,new Movie("Transformer","An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager.", 2007, 7.0));
         // When
         int expectedMoviesInList = 1;
 
