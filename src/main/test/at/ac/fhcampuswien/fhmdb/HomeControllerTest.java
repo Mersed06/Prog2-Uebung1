@@ -22,14 +22,14 @@ class HomeControllerTest {
     @BeforeEach
     public void setUp() {
         movieList = FXCollections.observableArrayList();
-        movie1 = new Movie("The Matrix", "A hacker learns about the true nature of reality.");
+        movie1 = new Movie("The Matrix", "A hacker learns about the true nature of reality.", 1999, 8.7);
         movie1.addMovieGenre(Genre.ACTION);
         movie1.addMovieGenre(Genre.SCIENCE_FICTION);
-        movie2 = new Movie("The Terminator", "A cyborg assassin is sent back in time to kill a woman.");
+        movie2 = new Movie("The Terminator", "A cyborg assassin is sent back in time to kill a woman.", 1984, 8.1);
         movie2.addMovieGenre(Genre.ACTION);
         movie2.addMovieGenre(Genre.SCIENCE_FICTION);
         movie2.addMovieGenre(Genre.HORROR);
-        movie3 = new Movie("The Lion King", "A young lion prince runs away after his father's murder.");
+        movie3 = new Movie("The Lion King", "A young lion prince runs away after his father's murder.", 2019, 6.8);
         movie3.addMovieGenre(Genre.ADVENTURE);
         movie3.addMovieGenre(Genre.DRAMA);
         movieList.addAll(movie1, movie2, movie3);
@@ -170,7 +170,7 @@ class HomeControllerTest {
     void test_observableMovies_size_is_1() {
         // Given
         controller = new HomeController();
-        controller.observableMovies.add(0, new Movie("abc","test"));
+        controller.observableMovies.add(0, new Movie("abc","test", 2005, 8.2));
 
         // When
         int expected = 1;
@@ -183,7 +183,7 @@ class HomeControllerTest {
     void test_observableMovies_first_movie_title_is_The_Matrix() {
         // Given
         controller = new HomeController();
-        controller.observableMovies.add(0, new Movie("The Matrix", "Test"));
+        controller.observableMovies.add(0, new Movie("The Matrix", "Test", 1999, 8.7));
 
         // When
         String expectedTitle = "The Matrix";
