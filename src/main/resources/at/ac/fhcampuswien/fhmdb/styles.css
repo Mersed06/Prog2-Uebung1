@@ -44,6 +44,11 @@
     -fx-background-color: #ffffff;
 }
 
+.filter-by-rating{
+    -fx-background-color: white;
+    -fx-background-color: #ffffff;
+}
+
 .font-italic {
     -fx-font-style: italic;
     -fx-text-fill: #ffffff;
