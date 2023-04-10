@@ -39,6 +39,11 @@
     -fx-text-fill: #ffffff;
 }
 
+.filter-release-year{
+    -fx-background-color: white;
+    -fx-background-color: #ffffff;
+}
+
 .font-italic {
     -fx-font-style: italic;
     -fx-text-fill: #ffffff;
