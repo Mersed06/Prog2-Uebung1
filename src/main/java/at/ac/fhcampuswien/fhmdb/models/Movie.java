@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
+import com.google.gson.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Movie {
@@ -17,14 +19,20 @@ public class Movie {
     private int releaseYear;
     private double rating;
 
+    private JSONArray mainCast;
+
+    private long director;
 
 
-    public Movie(String title, String description, List<Genre> genre ,int releaseYear, double rating) {
+
+    public Movie(String title, String description, List<Genre> genre , int releaseYear, double rating, JSONArray cast, long movieDirector) {
         this.title = title;
         this.description = description;
         this.genreList = genre;
         this.releaseYear = releaseYear;
         this.rating = rating;
+        this.mainCast = cast;
+        this.director = movieDirector;
         MovieAPI movie = new MovieAPI();
     }
 
@@ -58,7 +66,7 @@ public class Movie {
 
         for (int i = 0; i < json.length(); i++) {
             JSONObject movie = json.getJSONObject(i);
-            movies.add(new Movie(movie.getString("title"),movie.getString("description"),List.of(mapGenres(movie.getJSONArray("genres"))),movie.getInt("releaseYear"),movie.getDouble("rating")));
+            movies.add(new Movie(movie.getString("title"),movie.getString("description"),List.of(mapGenres(movie.getJSONArray("genres"))),movie.getInt("releaseYear"),movie.getDouble("rating"), movie.getJSONArray("mainCast"), movie.getLong("director")));
         }
         return movies;
     }
@@ -79,5 +87,11 @@ public class Movie {
         return genres;
     }
 
+    public JSONArray getMainCast() {
+        return mainCast;
+    }
 
+    public long getDirectors() {
+        return director;
+    }
 }

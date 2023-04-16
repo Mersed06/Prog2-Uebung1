@@ -42,6 +42,8 @@ public class MovieAPI {
     public static void deleteURLParameter(String parameter) {
         urlBuilder.removeAllQueryParameters(parameter);
     }
+
+
     public static HttpUrl.Builder getUrlBuilder() {
         return urlBuilder;
     }
