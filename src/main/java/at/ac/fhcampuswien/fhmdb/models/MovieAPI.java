@@ -1,43 +1,54 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
+import org.json.JSONArray;
 import okhttp3.*;
 import java.io.IOException;
 
 public class MovieAPI {
-    private static final String API_URL = "https://prog2.fh-campuswien.ac.at/movies";
-    private static final String USER_AGENT_HEADER = "User-Agent";
-    private static final String USER_AGENT_VALUE = "http.agent";
-    private OkHttpClient httpClient;
+    private static final String API_URL = "https://prog2.fh-campuswien.ac.at/movies?";
+
+    public static HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
 
     public MovieAPI() {
-        httpClient = new OkHttpClient();
     }
 
-    public String getMovies() throws IOException {
-        Request request = new Request.Builder()
-                .url(API_URL)
-                .addHeader(USER_AGENT_HEADER, USER_AGENT_VALUE)
-                .build();
+    public static JSONArray getMovies(String url) throws IOException {
+        try {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(API_URL)
+                    .addHeader("User-Agent", "http.agent")
+                    .build();
+            Response response = client.newCall(request).execute();
 
-        try (Response response = httpClient.newCall(request).execute()) {
-            return response.body().string();
+            if (!response.isSuccessful()) {
+                throw new RuntimeException("Error: " + response.code());
+            }
+
+            String responseString = response.body().string();
+            JSONArray moviesJSONArray = new JSONArray(responseString);
+
+
+            return moviesJSONArray;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public String searchMovies(String query, String genre) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
-        urlBuilder.addQueryParameter("query", query);
-        urlBuilder.addQueryParameter("genre", genre);
-        String url = urlBuilder.build().toString();
+    public static void addURLParameter(String parameter, String value) {
+        urlBuilder.addQueryParameter(parameter, value);
+    }
 
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader(USER_AGENT_HEADER, USER_AGENT_VALUE)
-                .build();
+    public static void deleteURLParameter(String parameter) {
+        urlBuilder.removeAllQueryParameters(parameter);
+    }
+    public static HttpUrl.Builder getUrlBuilder() {
+        return urlBuilder;
+    }
 
-        try (Response response = httpClient.newCall(request).execute()) {
-            return response.body().string();
-        }
+    public static String getApiUrl()
+    {
+        return API_URL;
     }
 }
 

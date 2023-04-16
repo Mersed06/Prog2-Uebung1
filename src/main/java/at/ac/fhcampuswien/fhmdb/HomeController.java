@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import static at.ac.fhcampuswien.fhmdb.models.Movie.initializeMovies;
+
 public class HomeController implements Initializable {
     @FXML
     public JFXButton searchBtn;
@@ -37,11 +39,14 @@ public class HomeController implements Initializable {
     @FXML
     public JFXButton resetBtn;
 
-    public List<Movie> allMovies = Movie.initializeMovies();
+    public List<Movie> allMovies = Movie.initializeMoviesWithoutParameter();
 
     private final MovieAPI movieAPI = new MovieAPI();
 
     ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
+
+    public HomeController() throws IOException {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,12 +75,24 @@ public class HomeController implements Initializable {
         // SEARCH FIELD
         searchField.setOnAction(actionEvent -> {
             String searchTerm = searchField.getText();
+            if (searchTerm != "")
+            {
+                MovieAPI.deleteURLParameter("query");
+                MovieAPI.addURLParameter("query",searchField.getText());
+                System.out.println(MovieAPI.getUrlBuilder());
+            }
+            if (searchTerm == null)
+            {
+                MovieAPI.deleteURLParameter("query");
+                System.out.println(MovieAPI.getUrlBuilder());
+            }
         });
 
         // FILTER BUTTON
         searchBtn.setOnAction(actionEvent -> {
             resetMovies(observableMovies, allMovies);
             String searchTerm = searchField.getText();
+
             observableMovies = searchMovies(observableMovies,searchTerm);
             observableMovies = filterMovies(observableMovies, genreComboBox);
             movieListView.setItems(observableMovies);
