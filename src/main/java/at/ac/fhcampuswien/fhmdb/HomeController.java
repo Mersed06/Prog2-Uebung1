@@ -19,8 +19,10 @@ import java.net.URL;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static at.ac.fhcampuswien.fhmdb.models.Movie.initializeMovies;
+import static java.lang.Long.parseLong;
 
 public class HomeController implements Initializable {
     @FXML
@@ -67,7 +69,7 @@ public class HomeController implements Initializable {
 
         // FILTER BY RELEASE YEAR
         ComboBoxRating.setPromptText("Filter by Rating");
-        for (int i = 0; i <= 10 ; i += 0.5) {
+        for (int i = 0; i <= 10 ; i += 0.1) {
             ComboBoxRating.getItems().add(i);
         }
 
@@ -180,13 +182,12 @@ public class HomeController implements Initializable {
         return longestTitleLength.orElse(0);
     }
 
-// needs to be fixed
-    long countMoviesFrom (List<Movie> movies, String director) {
-        return movies.stream()
-                .filter(movie -> movie.getDirectors().toList().contains(director))
-                .count();
-    }
-
+    // needs to be fixed
+    public long countMoviesFrom(List<Movie> movies, String director) {
+    return movies.stream()
+            .filter(movie -> movie.getDirectors().contains(director))
+            .count();
+}
     public static List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear) {
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear)
