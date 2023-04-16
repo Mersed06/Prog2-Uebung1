@@ -21,18 +21,18 @@ public class Movie {
 
     private JSONArray mainCast;
 
-    private long director;
+    private List<String> directors;
 
 
 
-    public Movie(String title, String description, List<Genre> genre , int releaseYear, double rating, JSONArray cast, long movieDirector) {
+    public Movie(String title, String description, List<Genre> genre , int releaseYear, double rating, JSONArray cast, List<String> movieDirectors) {
         this.title = title;
         this.description = description;
         this.genreList = genre;
         this.releaseYear = releaseYear;
         this.rating = rating;
         this.mainCast = cast;
-        this.director = movieDirector;
+        this.directors = movieDirectors;
         MovieAPI movie = new MovieAPI();
     }
 
@@ -66,7 +66,7 @@ public class Movie {
 
         for (int i = 0; i < json.length(); i++) {
             JSONObject movie = json.getJSONObject(i);
-            movies.add(new Movie(movie.getString("title"),movie.getString("description"),List.of(mapGenres(movie.getJSONArray("genres"))),movie.getInt("releaseYear"),movie.getDouble("rating"), movie.getJSONArray("mainCast"), movie.getLong("director")));
+            movies.add(new Movie(movie.getString("title"),movie.getString("description"),List.of(mapGenres(movie.getJSONArray("genres"))),movie.getInt("releaseYear"),movie.getDouble("rating"), movie.getJSONArray("mainCast"), List.of(movie.getString("directors"))));
         }
         return movies;
     }
@@ -91,7 +91,7 @@ public class Movie {
         return mainCast;
     }
 
-    public long getDirectors() {
-        return director;
+    public List<String> getDirectors() {
+        return directors;
     }
 }
