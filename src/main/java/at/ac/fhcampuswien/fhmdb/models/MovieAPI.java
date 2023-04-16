@@ -5,7 +5,7 @@ import okhttp3.*;
 import java.io.IOException;
 
 public class MovieAPI {
-    private static final String API_URL = "https://prog2.fh-campuswien.ac.at/movies?";
+    private static final String API_URL = "https://prog2.fh-campuswien.ac.at/movies";
 
     public static HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
 
