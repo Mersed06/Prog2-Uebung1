@@ -29,7 +29,7 @@ public class Movie {
         this.imgUrl = null;
         this.lengthInMinutes = 0;
         this.rating = 0;
-        this.id ="";
+        this.id = "";
     }
 
     @Override
