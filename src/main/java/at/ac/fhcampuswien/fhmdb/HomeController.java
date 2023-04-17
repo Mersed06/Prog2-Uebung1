@@ -104,7 +104,7 @@ public class HomeController implements Initializable {
 
         Object[] genres = Genre.values();   // get all genres
         genreComboBox.getItems().add("No filter");
-        genreComboBox.getItems().addAll(genres);
+        genreComboBox.getItems().addAll(genres); //adding the Genres to the genreComboBox
         genreComboBox.setPromptText("Filter by Genre");
 
         releaseYearComboBox.setPromptText("Filter by Release Year");
@@ -114,18 +114,22 @@ public class HomeController implements Initializable {
         ratingComboBox.getItems().addAll(MovieAPI.getRating());
     }
 
+
+    //Filters the movie output by Years
     public List<Movie> filterByYear(List<Movie> movies, Integer releaseYear){
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() == releaseYear)
                 .toList();
     }
 
+
+
     public List<Movie> filterByRating(List<Movie> movies, Double rating){
         if (rating == null){
             return movies;
         }
         return movies.stream()
-                .filter(movie -> movie.getRating() >= rating)
+                .filter(movie -> movie.getRating() == rating)
                 .toList();
     }
 
@@ -153,10 +157,11 @@ public class HomeController implements Initializable {
     public List<Movie> filterByQuery(List<Movie> movies, String query){
         if(query == null || query.isEmpty()) return movies;
         if(movies == null) {
-            throw new IllegalArgumentException("movies must not be null");
+            throw new IllegalArgumentException("Movies must not be null");
         }
 
         return movies.stream()
+                // :: is the method reference operator, used to call a method by referring to it with the help of its class directly
                 .filter(Objects::nonNull)
                 .filter(movie ->
                         movie.getTitle().toLowerCase().contains(query.toLowerCase()) ||
@@ -168,7 +173,7 @@ public class HomeController implements Initializable {
     public List<Movie> filterByGenre(List<Movie> movies, Genre genre){
         if(genre == null) return movies;
         if(movies == null) {
-            throw new IllegalArgumentException("movies must not be null");
+            throw new IllegalArgumentException("Movies must not be null");
         }
         return movies.stream()
                 .filter(Objects::nonNull)
@@ -176,6 +181,8 @@ public class HomeController implements Initializable {
                 .toList();
     }
 
+
+    //method, where all filterMethods are included
     public void applyAllFilters(String searchQuery, Object genre,Integer releaseYear, Double ratings) {
         List<Movie> filteredMovies = allMovies;
         if (!searchQuery.isEmpty()) {
@@ -207,12 +214,14 @@ public class HomeController implements Initializable {
         sortMovies();
     }
 
+    //returns the count of films of a certain author
     public long countMoviesFrom(List<Movie> movies, String director) {
         return movies.stream()
                 .filter(movie -> movie.getDirectors().contains(director))
                 .count();
     }
 
+    //returns the person, which is the most often in the main cast role
     public String getMostPopularActor(List<Movie> movies){
         String mostPopularActor = movies.stream()
                 .flatMap(s->s.getMainCast().stream())
@@ -225,6 +234,7 @@ public class HomeController implements Initializable {
         return mostPopularActor;
     }
 
+    //filters the longest movie title and returns the length of the title
     public int getLongestMovieTitle(List<Movie> movies){
         return movies.stream()
                 .map(Movie::getTitle)
@@ -232,6 +242,7 @@ public class HomeController implements Initializable {
                 .max().orElse(0);
     }
 
+    //returns movie in a certain time period
     public List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear) {
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear)
