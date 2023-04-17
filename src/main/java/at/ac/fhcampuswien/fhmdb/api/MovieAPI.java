@@ -61,7 +61,7 @@ public class MovieAPI {
         return urlBuild.toString();
     }
 
-    public static List<Movie> getAllMovies(String query, Genre genre, String releaseYear, String ratingFrom){
+    public static List<Movie> getAllMovies(String query, Genre genre, String releaseYear, String ratingFrom) {
         String urlBuild = buildUrl(query, genre, releaseYear, ratingFrom);
         OkHttpClient client = new OkHttpClient();
 
@@ -71,14 +71,14 @@ public class MovieAPI {
                 .addHeader("User-Agent", "http.agent")
                 .build();
 
-        try(Response response = client.newCall(request).execute()){
+        try (Response response = client.newCall(request).execute()) {
             String responseBody = response.body().string();
             Gson gson = new Gson();
             Movie[] movies = gson.fromJson(responseBody, Movie[].class);
 
             return Arrays.asList(movies);
         }
-        catch (Exception e){
+        catch (Exception e) {
             System.err.println("exception");
             e.printStackTrace(System.err);
         }
@@ -89,7 +89,7 @@ public class MovieAPI {
         return getAllMovies(null, null, null, null);
     }
 
-    public static List<Integer> getReleaseYears(){
+    public static List<Integer> getReleaseYears() {
         List<Movie> allMovies = getAllMovies();
 
         return allMovies.stream()
