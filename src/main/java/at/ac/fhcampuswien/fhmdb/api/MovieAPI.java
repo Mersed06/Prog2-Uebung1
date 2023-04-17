@@ -12,7 +12,7 @@ import okhttp3.*;
 import com.google.gson.*;
 
 public class MovieAPI {
-    private static final String URL = "http://localhost:8080/movies"; //local because API is not accessible
+    private static final String URL = "https://prog2.fh-campuswien.ac.at/movies";
     private static final String queryURL = "query=";
     private static final String genreURL = "genre=";
     private static final String releaseYearURL = "releaseYear=";
@@ -72,6 +72,16 @@ public class MovieAPI {
 
         return allMovies.stream()
                 .map(Movie::getReleaseYear)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public static List<Double> getRating() {
+        List<Movie> allMovies = getAllMovies();
+
+        return allMovies.stream()
+                .map(Movie::getRating)
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
