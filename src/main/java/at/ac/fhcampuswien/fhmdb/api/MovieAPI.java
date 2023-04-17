@@ -18,23 +18,45 @@ public class MovieAPI {
     private static final String releaseYearURL = "releaseYear=";
     private static final String ratingFromURL = "ratingFrom=";
 
-    private static String buildUrl(String query, Genre genre, String releaseYear, String ratingFrom) {
+    public static String buildUrl(String query, Genre genre, String releaseYear, String ratingFrom) {
         StringBuilder urlBuild = new StringBuilder(URL);
 
-        if ((query != null && !query.isEmpty()) || genre != null || releaseYear != null || ratingFrom != null) {
+        if ((query != null && !query.isEmpty()) && genre != null && releaseYear != null && ratingFrom != null) {
             urlBuild.append("?");
-            if (query != null && !query.isEmpty()) {
-                urlBuild.append(queryURL).append(query).append("&");
-            }
-            if (genre != null) {
-                urlBuild.append(genreURL).append(genre).append("&");
-            }
-            if (releaseYear != null) {
-                urlBuild.append(releaseYearURL).append(releaseYear).append("&");
-            }
-            if (ratingFrom != null) {
-                urlBuild.append(ratingFromURL).append(ratingFrom).append("&");
-            }
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(genreURL).append(genre).append("&");
+            urlBuild.append(releaseYearURL).append(releaseYear).append("&");
+            urlBuild.append(ratingFromURL).append(ratingFrom);
+        } else if ((query != null && !query.isEmpty()) && genre != null && releaseYear != null && ratingFrom == null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(genreURL).append(genre).append("&");
+            urlBuild.append(releaseYearURL).append(releaseYear);
+        } else if ((query != null && !query.isEmpty()) && genre != null && releaseYear == null && ratingFrom != null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(genreURL).append(genre).append("&");
+            urlBuild.append(ratingFromURL).append(ratingFrom);
+        } else if ((query != null && !query.isEmpty()) && genre == null && releaseYear != null && ratingFrom != null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(releaseYearURL).append(releaseYear).append("&");
+            urlBuild.append(ratingFromURL).append(ratingFrom);
+        } else if ((query != null && !query.isEmpty()) && genre != null && releaseYear == null && ratingFrom == null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(genreURL).append(genre);
+        } else if ((query != null && !query.isEmpty()) && genre == null && releaseYear != null && ratingFrom == null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(releaseYearURL).append(releaseYear);
+        } else if ((query != null && !query.isEmpty()) && genre == null && releaseYear == null && ratingFrom != null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query).append("&");
+            urlBuild.append(ratingFromURL).append(ratingFrom);
+        } else if ((query != null && !query.isEmpty()) && genre == null && releaseYear == null && ratingFrom == null) {
+            urlBuild.append("?");
+            urlBuild.append(queryURL).append(query);
         }
         return urlBuild.toString();
     }
