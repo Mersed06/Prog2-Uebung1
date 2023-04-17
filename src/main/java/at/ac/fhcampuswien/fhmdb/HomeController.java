@@ -19,34 +19,23 @@ import java.util.stream.Collectors;
 
 public class HomeController implements Initializable {
     @FXML
-    public JFXButton searchBtn;
-
-    @FXML
     public TextField searchField;
-
     @FXML
     public JFXListView movieListView;
-
     @FXML
     public JFXComboBox genreComboBox;
-
     @FXML
     public JFXButton sortBtn;
-
     @FXML
     public JFXButton resetBtn;
     @FXML
     public JFXButton filterBtn;
-
     @FXML
     public JFXComboBox releaseYearComboBox;
     @FXML
     public JFXComboBox ratingComboBox;
-
     public List<Movie> allMovies;
-
     protected ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
-
     protected SortedState sortedState;
 
     @Override
@@ -86,6 +75,7 @@ public class HomeController implements Initializable {
             applyAllFilters(searchQuery, genre, releaseYear,rating);
 
             sortMovies(sortedState);
+
         });
     }
 
@@ -100,9 +90,9 @@ public class HomeController implements Initializable {
         movieListView.setItems(observableMovies);   // set the items of the listview to the observable list
         movieListView.setCellFactory(movieListView -> new MovieCell()); // apply custom cells to the listview
 
-        Object[] genres = Genre.values();   // get all genres
+        Object[] genres = Genre.values();
         genreComboBox.getItems().add("No filter");
-        genreComboBox.getItems().addAll(genres); //adding the Genres to the genreComboBox
+        genreComboBox.getItems().addAll(genres);
         genreComboBox.setPromptText("Filter by Genre");
 
         releaseYearComboBox.setPromptText("Filter by Release Year");
@@ -112,14 +102,11 @@ public class HomeController implements Initializable {
         ratingComboBox.getItems().addAll(MovieAPI.getRating());
     }
 
-    //Filters the movie output by Years
     public List<Movie> filterByYear(List<Movie> movies, Integer releaseYear){
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() == releaseYear)
                 .toList();
     }
-
-
 
     public List<Movie> filterByRating(List<Movie> movies, Double rating){
         if (rating == null){
@@ -178,7 +165,6 @@ public class HomeController implements Initializable {
                 .toList();
     }
 
-
     //method, where all filterMethods are included
     public void applyAllFilters(String searchQuery, Object genre,Integer releaseYear, Double ratings) {
         List<Movie> filteredMovies = allMovies;
@@ -194,21 +180,47 @@ public class HomeController implements Initializable {
         if (ratings != null){
             filteredMovies = filterByRating(filteredMovies, ratings);
         }
+
+        if ((searchQuery != null && !searchQuery.isEmpty()) && genre != null && releaseYear != null && ratings != null) {
+            String url = MovieAPI.buildUrl(searchQuery, (Genre) genre, releaseYear.toString(), ratings.toString());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre != null && releaseYear != null && ratings == null) {
+            String url = MovieAPI.buildUrl(searchQuery, (Genre) genre, releaseYear.toString(), null);
+            String newUrl = url.substring(url.indexOf("ratingFrom=") + "ratingFrom=".length());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre != null && releaseYear == null && ratings != null) {
+            String url = MovieAPI.buildUrl(searchQuery, (Genre) genre, null, ratings.toString());
+            String newUrl = url.substring(url.indexOf("releaseYear=") + "releaseYear=".length());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre == null && releaseYear != null && ratings != null) {
+            String url = MovieAPI.buildUrl(searchQuery, null, releaseYear.toString(), ratings.toString());
+            String newUrl = url.substring(url.indexOf("genre=") + "genre=".length());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre != null && releaseYear == null && ratings == null) {
+            String url = MovieAPI.buildUrl(searchQuery, (Genre) genre, null, null);
+            String newUrl = url.substring(url.indexOf("releaseYear=") + "releaseYear=".length());
+            String anotherUrl = url.substring(url.indexOf("ratingFrom=") + "ratingFrom=".length());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre == null && releaseYear != null && ratings == null) {
+            String url = MovieAPI.buildUrl(searchQuery, null, releaseYear.toString(), null);
+            String newUrl = url.substring(url.indexOf("genre=") + "genre=".length());
+            String anotherUrl = url.substring(url.indexOf("ratingFrom=") + "ratingFrom=".length());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre == null && releaseYear == null && ratings != null) {
+            String url = MovieAPI.buildUrl(searchQuery, null, null, ratings.toString());
+            String newUrl = url.substring(url.indexOf("genre=") + "genre=".length());
+            String anotherUrl = url.substring(url.indexOf("releaseYear=") + "releaseYear=".length());
+            System.out.println(url);
+        } else if ((searchQuery != null && !searchQuery.isEmpty()) && genre == null && releaseYear == null && ratings == null) {
+            String url = MovieAPI.buildUrl(searchQuery, null, null, null);
+            String newUrl = url.substring(url.indexOf("genre=") + "genre=".length());
+            String anotherUrl = url.substring(url.indexOf("releaseYear=") + "releaseYear=".length());
+            String thirdUrl = url.substring(url.indexOf("ratingFrom=") + "ratingFrom=".length());
+            System.out.println(url);
+        }
+
         observableMovies.clear();
         observableMovies.addAll(filteredMovies);
-    }
-
-    public void searchBtnClicked(ActionEvent actionEvent) {
-        String searchQuery = searchField.getText().trim().toLowerCase();
-        Object genre = genreComboBox.getSelectionModel().getSelectedItem();
-        Integer releaseYear = (Integer) releaseYearComboBox.getSelectionModel().getSelectedItem();
-        Double rating = (Double) ratingComboBox.getSelectionModel().getSelectedItem();
-        applyAllFilters(searchQuery, genre, releaseYear,rating);
-        sortMovies(sortedState);
-    }
-
-    public void sortBtnClicked(ActionEvent actionEvent) {
-        sortMovies();
     }
 
     //returns the count of films of a certain author
