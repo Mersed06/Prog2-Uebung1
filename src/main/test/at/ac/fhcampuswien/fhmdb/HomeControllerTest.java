@@ -1,205 +1,143 @@
 package at.ac.fhcampuswien.fhmdb;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class HomeControllerTest {
-    private ObservableList<Movie> movieList;
-    private Movie movie1;
-    private Movie movie2;
-    private Movie movie3;
-    private HomeController controller;
-
-    /*@BeforeEach
-    public void setUp() {
-        movieList = FXCollections.observableArrayList();
-        movie1 = new Movie("The Matrix", "A hacker learns about the true nature of reality.", 1999, 8.7);
-        movie1.addMovieGenre(Genre.ACTION);
-        movie1.addMovieGenre(Genre.SCIENCE_FICTION);
-        movie2 = new Movie("The Terminator", "A cyborg assassin is sent back in time to kill a woman.", 1984, 8.1);
-        movie2.addMovieGenre(Genre.ACTION);
-        movie2.addMovieGenre(Genre.SCIENCE_FICTION);
-        movie2.addMovieGenre(Genre.HORROR);
-        movie3 = new Movie("The Lion King", "A young lion prince runs away after his father's murder.", 2019, 6.8);
-        movie3.addMovieGenre(Genre.ADVENTURE);
-        movie3.addMovieGenre(Genre.DRAMA);
-        movieList.addAll(movie1, movie2, movie3);
-
-        controller = new HomeController();
+    private static HomeController homeController;
+    @BeforeAll
+    static void init() {
+        homeController = new HomeController();
     }
 
     @Test
-    void test_searchMovies_number_of_titles_is_1() {
-        // Given
-        ObservableList<Movie> searchResults = HomeController.searchMovies(movieList, "Matrix");
-
-        // When
-        int expectedSize = 1;
-
-        // Then
-        assertEquals(expectedSize, searchResults.size());
+    void at_initialization_allMovies_and_observableMovies_should_be_filled_and_equal() {
+        homeController.initializeState();
+        assertEquals(homeController.allMovies, homeController.observableMovies);
     }
 
     @Test
-    void test_searchMovie_returns_correct_movie() {
-        // Given
-        ObservableList<Movie> searchResults = HomeController.searchMovies(movieList, "Matrix");
+    void query_filter_with_null_movie_list_throws_exception(){
+        // given
+        homeController.initializeState();
+        String query = "IfE";
 
-        // When
-        Movie expectedMovie = movie1;
-
-        // Then
-        assertEquals(expectedMovie, searchResults.get(0));
+        // when and then
+        assertThrows(IllegalArgumentException.class, () -> homeController.filterByQuery(null, query));
     }
 
     @Test
-    void test_searchMovie_by_title() {
-        // Given
-        ObservableList<Movie> searchResults = HomeController.searchMovies(movieList, "Terminator");
+    void query_filter_with_null_value_returns_unfiltered_list() {
+        // given
+        homeController.initializeState();
+        String query = null;
 
-        // When
-        String expectedTitle = "The Terminator";
+        // when
+        List<Movie> actual = homeController.filterByQuery(homeController.observableMovies, query);
 
-        // Then
-        assertEquals(expectedTitle, searchResults.get(0).getTitle());
+        // then
+        assertEquals(homeController.observableMovies, actual);
     }
 
     @Test
-    void test_searchMovie_by_description() {
-        // Given
-        ObservableList<Movie> searchResults = HomeController.searchMovies(movieList, "cyborg");
+    void genre_filter_with_null_value_returns_unfiltered_list() {
+        // given
+        homeController.initializeState();
+        Genre genre = null;
 
-        // When
-        Movie expectedMovie = movie2;
+        // when
+        List<Movie> actual = homeController.filterByGenre(homeController.observableMovies, genre);
 
-        // Then
-        assertEquals(expectedMovie, searchResults.get(0));
+        // then
+        assertEquals(homeController.observableMovies, actual);
     }
 
     @Test
-    void test_searchMovie_recognizes_nonexistent_movie_and_returns_size_0() {
-        // Given
-        ObservableList<Movie> searchResults = HomeController.searchMovies(movieList, "Star Wars");
+    void genre_filter_returns_all_movies_containing_given_genre() {
+        // given
+        homeController.initializeState();
+        Genre genre = Genre.DRAMA;
 
-        // When
-        int expectedSize = 0;
+        // when
+        List<Movie> actual = homeController.filterByGenre(homeController.observableMovies, genre);
 
-        // Then
-        assertEquals(expectedSize, searchResults.size());
+        // then
+        assertEquals(24, actual.size());
     }
 
     @Test
-    void test_resetMovies_size_is_0() {
-        // Given
-        List<Movie> allMovies = new ArrayList<>();
-        HomeController.resetMovies(movieList, allMovies);
+    void no_filtering_ui_if_empty_query_or_no_genre_or_no_year_or_no_rating() {
+        // given
+        homeController.initializeState();
 
-        // When
-        int expectedMovieSize = 0;
+        // when
+        homeController.applyAllFilters("", null, null,null);
 
-        // Then
-        assertEquals(expectedMovieSize, movieList.size());
+        // then
+        assertEquals(homeController.allMovies, homeController.observableMovies);
     }
 
     @Test
-    void test_resetMovies_size_is_not_empty() {
-        // Given
-        List<Movie> allMovies = Movie.initializeMovies();
-        movieList = FXCollections.observableArrayList(allMovies);
-        HomeController.resetMovies(movieList, allMovies);
+    void result_of_movies_by_christopher_nolan_should_be_two(){
+        //given
+        HomeController homeController = new HomeController();
+        MovieAPI movieAPI = new MovieAPI();
+        List<Movie> movieList = movieAPI.getAllMovies();
 
-        // When
-        int allMoviesSize = allMovies.size();
+        //when
+        long moviesCount = homeController.countMoviesFrom(movieList, "Christopher Nolan");
 
-        // Then
-        assertEquals(allMoviesSize, movieList.size());
+        //then
+        assertEquals(2,moviesCount);
     }
 
     @Test
-    void test_resetMovies_throws_NullPointerException_if_movieList_is_null() {
-        // Given
-        List<Movie> allMovies = new ArrayList<>();
+    void result_of_most_popular_actor_is_tom_hanks(){
+        //given
+        HomeController homeController = new HomeController();
+        MovieAPI movieAPI = new MovieAPI();
+        List<Movie> movieList = movieAPI.getAllMovies();
 
-        // When
-        movieList = null;
+        //when
+        String mostPopularActor = homeController.getMostPopularActor(movieList);
 
-        // Then
-        assertThrows(NullPointerException.class, () -> {
-            HomeController.resetMovies(movieList, allMovies);
-        });
+        //then
+        assertEquals("tom hanks",mostPopularActor);
     }
 
     @Test
-    void test_resetMovies_returns_exception_message_is_movieList_is_null() {
-        // Given
-        List<Movie> allMovies = Movie.initializeMovies();
-        ObservableList<Movie> movieList = null;
-        Exception exception = assertThrows(NullPointerException.class, () -> {
-            HomeController.resetMovies(movieList, allMovies);
-        });
+    void result_of_get_longest_Movie_Title_is_46(){
+        //given
+        HomeController homeController = new HomeController();
+        MovieAPI movieAPI = new MovieAPI();
+        List<Movie> movieList = movieAPI.getAllMovies();
 
-        // When
-        String expectedMessage = "\"movieList\" is null";
-        String actualMessage = exception.getMessage();
+        //when
+        int longestMovieTitle = homeController.getLongestMovieTitle(movieList);
 
-        // Then
-        assertTrue(actualMessage.contains(expectedMessage));
+        //then
+        assertEquals(46,longestMovieTitle);
     }
 
     @Test
-    void test_resetMovies_throws_NullPointerException_if_allMovies_is_null() {
-        // Given
-        List<Movie> allMovies = null;
+    void result_of_get_Movies_Between_Years_2012_And_2019_Is_Four(){
+        //given
+        HomeController homeController = new HomeController();
+        MovieAPI movieAPI = new MovieAPI();
+        List<Movie> movieList = movieAPI.getAllMovies();
 
-        // Then
-        assertThrows(NullPointerException.class, () -> {
-            HomeController.resetMovies(movieList, allMovies);
-        });
+        //when
+        List<Movie> getMoviesBetweenYears = homeController.getMoviesBetweenYears(movieList,2012,2019);
+
+        //then
+        assertEquals(4,getMoviesBetweenYears.stream().count());
     }
-
-    @Test
-    void test_observableMovies_size_is_1() {
-        // Given
-        controller = new HomeController();
-        controller.observableMovies.add(0, new Movie("abc","test", 2005, 8.2));
-
-        // When
-        int expected = 1;
-
-        // Then
-        assertEquals(expected, controller.observableMovies.size());  // Test that the observableMovies list only contains one movie.
-    }
-
-    @Test
-    void test_observableMovies_first_movie_title_is_The_Matrix() {
-        // Given
-        controller = new HomeController();
-        controller.observableMovies.add(0, new Movie("The Matrix", "Test", 1999, 8.7));
-
-        // When
-        String expectedTitle = "The Matrix";
-
-        // Then
-        assertEquals(expectedTitle, controller.observableMovies.get(0).getTitle());
-    }
-
-    @Test
-    void test_empty_observableMovies_returns_size_0() {
-        // Given
-        controller = new HomeController();
-
-        // When
-        int expectedSize = 0;
-        // Then
-        assertEquals(expectedSize, controller.observableMovies.size());
-    }*/
 }
