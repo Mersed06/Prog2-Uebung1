@@ -93,7 +93,7 @@ public class Movie {
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
 
-        movies.add(new Movie(
+        /*movies.add(new Movie(
                 "The Matrix",
                 "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.",
                 Arrays.asList(Genre.ACTION, Genre.SCIENCE_FICTION, Genre.ADVENTURE, Genre.FANTASY)
@@ -201,6 +201,8 @@ public class Movie {
                 Arrays.asList(Genre.ACTION, Genre.CRIME)
                 ));
 
+
+         */
         return movies;
     }
 }
