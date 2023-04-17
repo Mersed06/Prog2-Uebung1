@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ComboBox?>
 <VBox prefHeight="331.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.fhmdb.HomeController">
    <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="347.0" spacing="20.0" style="-fx-background-color: black;">
       <padding>
@@ -32,10 +33,11 @@
          <JFXButton fx:id="sortBtn" styleClass="background-yellow" stylesheets="@styles.css" text="Sort (asc)" />
          <TextField fx:id="searchField" prefHeight="25.0" prefWidth="170.0" promptText="Search FHMDb" />
          <JFXComboBox fx:id="genreComboBox" focusColor="#f5c518" styleClass="filter-combo-box" stylesheets="@styles.css" />
-         <JFXComboBox fx:id="ComboBoxReleaseYear" focusColor="#f5c518" styleClass="filter-release-year" stylesheets="@styles.css" promptText="Filter by Release Year"/>
-         <JFXComboBox fx:id="ComboBoxRating" focusColor="#f5c518" styleClass="filter-by-rating" stylesheets="@styles.css" promptText="Filter by Rating"/>
+         <JFXComboBox fx:id="releaseYearComboBox" focusColor="#f5c518" styleClass="filter-release-year" stylesheets="@styles.css" promptText="Filter by Release Year"/>
+         <JFXComboBox fx:id="ratingComboBox" focusColor="#f5c518" styleClass="filter-by-rating" stylesheets="@styles.css" promptText="Filter by Rating"/>
          <JFXButton fx:id="searchBtn" styleClass="background-yellow" stylesheets="@styles.css" text="Filter" />
          <JFXButton fx:id="resetBtn" styleClass="background-yellow" stylesheets="@styles.css" text="Reset" />
+         <JFXButton fx:id="filterBtn" styleClass="background-yellow" stylesheets="@styles.css" text="Filter" />
       </children>
       <VBox.margin>
          <Insets />
