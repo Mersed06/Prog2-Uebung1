@@ -6,7 +6,6 @@ import at.ac.fhcampuswien.fhmdb.models.Movie;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +24,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void query_filter_with_null_movie_list_throws_exception(){
+    void query_filter_with_null_movie_list_throws_exception() {
         // given
         homeController.initializeState();
         String query = "IfE";
@@ -86,7 +85,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void result_of_movies_by_christopher_nolan_should_be_two(){
+    void result_of_movies_by_christopher_nolan_should_be_two() {
         //given
         HomeController homeController = new HomeController();
         MovieAPI movieAPI = new MovieAPI();
@@ -100,7 +99,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void result_of_most_popular_actor_is_tom_hanks(){
+    void result_of_most_popular_actor_is_tom_hanks() {
         //given
         HomeController homeController = new HomeController();
         MovieAPI movieAPI = new MovieAPI();
@@ -114,7 +113,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void result_of_get_longest_Movie_Title_is_46(){
+    void result_of_get_longest_Movie_Title_is_46() {
         //given
         HomeController homeController = new HomeController();
         MovieAPI movieAPI = new MovieAPI();
@@ -128,7 +127,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void result_of_get_Movies_Between_Years_2012_And_2019_Is_Four(){
+    void result_of_get_Movies_Between_Years_2012_And_2019_Is_Four() {
         //given
         HomeController homeController = new HomeController();
         MovieAPI movieAPI = new MovieAPI();
