@@ -87,19 +87,6 @@ public class HomeController implements Initializable {
 
             sortMovies(sortedState);
         });
-
-
-        // FILTER BUTTON
-        filterBtn.setOnAction(actionEvent -> {
-            String searchQuery = searchField.getText().trim().toLowerCase();
-            Object genre = genreComboBox.getSelectionModel().getSelectedItem();
-            Integer releaseYear = (Integer) releaseYearComboBox.getSelectionModel().getSelectedItem();
-            Double rating = (Double) ratingComboBox.getSelectionModel().getSelectedItem();
-
-            applyAllFilters(searchQuery, genre, releaseYear,rating);
-
-            sortMovies(sortedState);
-        });
     }
 
     public void initializeState() {
