@@ -56,6 +56,30 @@ public class Movie {
 
     public List<Genre> getGenreList() { return genres; }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public int getLengthInMinutes() {
+        return lengthInMinutes;
+    }
+
+    public List<String> getDirectors() {
+        return directors;
+    }
+
+    public List<String> getWriters() {
+        return writers;
+    }
+
+    public List<String> getMainCast() {
+        return mainCast;
+    }
+
     public int getReleaseYear() {
         return releaseYear;
     }
@@ -64,9 +88,7 @@ public class Movie {
         return rating;
     }
 
-    public void addMovieGenre(Genre genre) {
-        genres.add(genre);
-    }
+
 
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
