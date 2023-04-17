@@ -89,6 +89,17 @@ public class HomeController implements Initializable {
         });
 
 
+        // FILTER BUTTON
+        filterBtn.setOnAction(actionEvent -> {
+            String searchQuery = searchField.getText().trim().toLowerCase();
+            Object genre = genreComboBox.getSelectionModel().getSelectedItem();
+            Integer releaseYear = (Integer) releaseYearComboBox.getSelectionModel().getSelectedItem();
+            Double rating = (Double) ratingComboBox.getSelectionModel().getSelectedItem();
+
+            applyAllFilters(searchQuery, genre, releaseYear,rating);
+
+            sortMovies(sortedState);
+        });
     }
 
     public void initializeState() {
@@ -113,7 +124,6 @@ public class HomeController implements Initializable {
         ratingComboBox.setPromptText("Filter by Rating");
         ratingComboBox.getItems().addAll(MovieAPI.getRating());
     }
-
 
     //Filters the movie output by Years
     public List<Movie> filterByYear(List<Movie> movies, Integer releaseYear){
