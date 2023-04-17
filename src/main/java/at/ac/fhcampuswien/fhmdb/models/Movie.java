@@ -12,13 +12,9 @@ public class Movie {
     private double rating;
     private final String id;
     private final String imgUrl;
-
     private final int lengthInMinutes;
-
     private final List<String> directors = new ArrayList<>();
-
     private final List<String> writers = new ArrayList<>();
-
     private final List<String> mainCast = new ArrayList<>();
 
     public Movie(String title, String description, List<Genre> genres) {
@@ -32,20 +28,6 @@ public class Movie {
         this.id = "";
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) {
-            return false;
-        }
-        if(obj == this) {
-            return true;
-        }
-        if(!(obj instanceof Movie other)) {
-            return false;
-        }
-        return this.title.equals(other.title) && this.description.equals(other.description) && this.genres.equals(other.genres);
-    }
-
     public String getTitle() {
         return title;
     }
@@ -56,24 +38,8 @@ public class Movie {
 
     public List<Genre> getGenreList() { return genres; }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public int getLengthInMinutes() {
-        return lengthInMinutes;
-    }
-
     public List<String> getDirectors() {
         return directors;
-    }
-
-    public List<String> getWriters() {
-        return writers;
     }
 
     public List<String> getMainCast() {
@@ -88,12 +54,10 @@ public class Movie {
         return rating;
     }
 
-
-
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
 
-        /*movies.add(new Movie(
+        movies.add(new Movie(
                 "The Matrix",
                 "The Matrix is a computer-generated dream world designed to keep these humans under control. Humans are kept sedated, effectively living a virtual life. Neo awakens in a bed back on Morpheus's ship, and Morpheus further explains that one man was born into the Matrix with the power to change anything in it.",
                 Arrays.asList(Genre.ACTION, Genre.SCIENCE_FICTION, Genre.ADVENTURE, Genre.FANTASY)
@@ -201,8 +165,6 @@ public class Movie {
                 Arrays.asList(Genre.ACTION, Genre.CRIME)
                 ));
 
-
-         */
         return movies;
     }
 }
