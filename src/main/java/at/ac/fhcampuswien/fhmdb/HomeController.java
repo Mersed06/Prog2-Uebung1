@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -45,7 +44,7 @@ public class HomeController implements Initializable {
 
         //SORT BUTTON
         sortBtn.setOnAction(actionEvent -> {
-            if(sortBtn.getText().equals("Sort (asc)")) {
+            if (sortBtn.getText().equals("Sort (asc)")) {
                 sortBtn.setText("Sort (desc)");
                 movieListView.setItems(observableMovies.sorted(Comparator.comparing(Movie::getTitle)));
             } else {
@@ -82,12 +81,12 @@ public class HomeController implements Initializable {
     public void initializeState() {
         allMovies = MovieAPI.getAllMovies();
         observableMovies.clear();
-        observableMovies.addAll(allMovies); // add all movies to the observable list
+        observableMovies.addAll(allMovies);
         sortedState = SortedState.NONE;
     }
 
     public void initializeLayout() {
-        movieListView.setItems(observableMovies);   // set the items of the listview to the observable list
+        movieListView.setItems(observableMovies);
         movieListView.setCellFactory(movieListView -> new MovieCell()); // apply custom cells to the listview
 
         Object[] genres = Genre.values();
@@ -102,14 +101,17 @@ public class HomeController implements Initializable {
         ratingComboBox.getItems().addAll(MovieAPI.getRating());
     }
 
-    public List<Movie> filterByYear(List<Movie> movies, Integer releaseYear){
+    public List<Movie> filterByYear(List<Movie> movies, Integer releaseYear) {
+        if (releaseYear == null) {
+            return movies;
+        }
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() == releaseYear)
                 .toList();
     }
 
-    public List<Movie> filterByRating(List<Movie> movies, Double rating){
-        if (rating == null){
+    public List<Movie> filterByRating(List<Movie> movies, Double rating) {
+        if (rating == null) {
             return movies;
         }
         return movies.stream()
@@ -117,7 +119,7 @@ public class HomeController implements Initializable {
                 .toList();
     }
 
-    public void sortMovies(){
+    public void sortMovies() {
         if (sortedState == SortedState.NONE || sortedState == SortedState.DESCENDING) {
             sortMovies(SortedState.ASCENDING);
         } else if (sortedState == SortedState.ASCENDING) {
@@ -138,9 +140,9 @@ public class HomeController implements Initializable {
         }
     }
 
-    public List<Movie> filterByQuery(List<Movie> movies, String query){
-        if(query == null || query.isEmpty()) return movies;
-        if(movies == null) {
+    public List<Movie> filterByQuery(List<Movie> movies, String query) {
+        if (query == null || query.isEmpty()) return movies;
+        if (movies == null) {
             throw new IllegalArgumentException("Movies must not be null");
         }
 
@@ -154,9 +156,9 @@ public class HomeController implements Initializable {
                 .toList();
     }
 
-    public List<Movie> filterByGenre(List<Movie> movies, Genre genre){
-        if(genre == null) return movies;
-        if(movies == null) {
+    public List<Movie> filterByGenre(List<Movie> movies, Genre genre) {
+        if (genre == null) return movies;
+        if (movies == null) {
             throw new IllegalArgumentException("Movies must not be null");
         }
         return movies.stream()
@@ -174,10 +176,10 @@ public class HomeController implements Initializable {
         if (genre != null && !genre.toString().equals("No filter")) {
             filteredMovies = filterByGenre(filteredMovies, Genre.valueOf(genre.toString()));
         }
-        if (releaseYear != null){
+        if (releaseYear != null) {
             filteredMovies = filterByYear(filteredMovies,releaseYear);
         }
-        if (ratings != null){
+        if (ratings != null) {
             filteredMovies = filterByRating(filteredMovies, ratings);
         }
 
@@ -231,7 +233,7 @@ public class HomeController implements Initializable {
     }
 
     //returns the person, which is the most often in the main cast role
-    public String getMostPopularActor(List<Movie> movies){
+    public String getMostPopularActor(List<Movie> movies) {
         String mostPopularActor = movies.stream()
                 .flatMap(s->s.getMainCast().stream())
                 .collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()))
@@ -244,7 +246,7 @@ public class HomeController implements Initializable {
     }
 
     //filters the longest movie title and returns the length of the title
-    public int getLongestMovieTitle(List<Movie> movies){
+    public int getLongestMovieTitle(List<Movie> movies) {
         return movies.stream()
                 .map(Movie::getTitle)
                 .mapToInt(String::length)
